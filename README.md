@@ -1,16 +1,13 @@
-[![Build Status](https://www.travis-ci.com/AlexeyEsipov/job4j_threads.svg?branch=master)](https://www.travis-ci.com/AlexeyEsipov/job4j_threads)
-[![codecov](https://codecov.io/gh/AlexeyEsipov/job4j_threads/branch/master/graph/badge.svg?token=1GTNT8074I)](https://codecov.io/gh/AlexeyEsipov/job4j_threads)
-# job4j_threads
+# job4j_dreamjob
 
-"Объединение зафиксированных изменений"
-Изменение 1-е.
-Изменение 2-е.
-Изучаю задачу Git Stash - внес изменение 
+Приложение находится в разработке.
 
-В курсе производилась работа с ветками git
+Что будет:
 
-Создали ветку task_139841
+- будет разрабатываться приложение биржа работы.
 
-Создание ветки из IDEA Задача 2. Ветки в IDEA [#139840]
 
-Вносим изменения согласно задаче 3.1. 306989 
+- В системе будут два типа пользователей: кандидаты и кадровики. Кандидаты будут публиковать резюме. Кадровики будут публиковать вакансии о работе.
+
+- Кандидаты могут откликнуться на вакансию.
+- Кадровик может пригласить на вакансию кандидата.
