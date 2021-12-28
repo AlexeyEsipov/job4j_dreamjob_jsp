@@ -3,19 +3,11 @@ package ru.job4j.dream.model;
 import java.util.Objects;
 
 public class Candidate {
-    private String name;
     private int id;
+    private String name;
 
     public Candidate(int id, String name) {
-        this.name = name;
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 
@@ -27,19 +19,28 @@ public class Candidate {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Candidate candidate)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
+        Candidate candidate = (Candidate) o;
         return id == candidate.id && Objects.equals(name, candidate.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, id);
+        return Objects.hash(id, name);
     }
 }
