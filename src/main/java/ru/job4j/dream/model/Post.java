@@ -58,6 +58,6 @@ public class Post {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+            return Objects.hash(id);
     }
 }
