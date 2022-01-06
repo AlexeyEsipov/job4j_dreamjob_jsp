@@ -54,5 +54,13 @@ public class MainStore {
         System.out.println(" 5 запись" + System.lineSeparator());
         mainStore.printRecord(store, 5, 5);
 
+//        Post post = new Post(0, "Java Job");
+//        System.out.println(post.getId());
+//        store.savePost(post);
+        // Post postInDb = store.findPostById(post.getId());
+//        Post postInDb = store.findPostById(1);
+//        System.out.println(postInDb);
+
+
     }
 }

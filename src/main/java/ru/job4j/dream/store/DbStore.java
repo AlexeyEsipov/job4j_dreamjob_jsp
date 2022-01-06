@@ -45,11 +45,11 @@ public class DbStore implements Store {
     }
 
     private static final class Lazy {
-        private static final Store INST = new DbStore();
+        private static final Store INSTANCE = new DbStore();
     }
 
     public static Store instOf() {
-        return Lazy.INST;
+        return Lazy.INSTANCE;
     }
 
     @Override
