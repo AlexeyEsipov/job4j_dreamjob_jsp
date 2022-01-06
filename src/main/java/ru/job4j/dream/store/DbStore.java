@@ -52,6 +52,7 @@ public class DbStore implements Store {
         return Lazy.INST;
     }
 
+    @Override
     public Collection<Post> findAllPosts() {
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
@@ -68,6 +69,7 @@ public class DbStore implements Store {
         return posts;
     }
 
+    @Override
     public Collection<Candidate> findAllCandidates() {
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
@@ -92,6 +94,7 @@ public class DbStore implements Store {
         }
     }
 
+    @Override
     public void saveCandidate(Candidate candidate) {
         if (candidate.getId() == 0) {
             create(candidate);
@@ -172,6 +175,7 @@ public class DbStore implements Store {
         return null;
     }
 
+    @Override
     public Candidate findCandidateById(int id) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement("SELECT * FROM candidate WHERE id = ?")
@@ -186,5 +190,16 @@ public class DbStore implements Store {
             LOG.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    @Override
+    public void deleteCandidate(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM candidate WHERE id = (?)")) {
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 }
