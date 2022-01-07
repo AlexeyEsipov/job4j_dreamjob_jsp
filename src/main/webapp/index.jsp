@@ -21,7 +21,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <jsp:include page="/candidate/menu.jsp"/>
+            <a class="nav-link" href="<%=request.getContextPath()%>/candidate/login.jsp">Войти</a>
     </div>
     <div class="row">
         <div class="card" style="width: 100%">
