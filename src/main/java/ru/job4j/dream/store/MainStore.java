@@ -2,6 +2,7 @@ package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 public class MainStore {
 
@@ -14,6 +15,11 @@ public class MainStore {
         System.out.println("Таблица постов:");
         for (Post post : store.findAllPosts()) {
             System.out.println(post);
+        }
+        System.out.println();
+        System.out.println("Таблица пользователей:");
+        for (User user: store.findAllUsers()) {
+            System.out.println(user);
         }
         System.out.println();
     }
@@ -49,10 +55,12 @@ public class MainStore {
         store.saveCandidate(new Candidate(0, "Java Candidate5"));
         store.saveCandidate(new Candidate(0, "Java Candidate6"));
         store.saveCandidate(new Candidate(5, "Java Candidate5-Edit"));
+
+        store.saveUser(new User(0, "Alex", "alex@mail.com", ""));
+
         System.out.println("Проверяем" + System.lineSeparator());
         mainStore.printDB(store);
         System.out.println(" 5 запись" + System.lineSeparator());
         mainStore.printRecord(store, 5, 5);
-
     }
 }

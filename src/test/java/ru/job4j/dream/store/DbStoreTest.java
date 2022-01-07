@@ -2,6 +2,7 @@ package ru.job4j.dream.store;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -57,5 +58,34 @@ public class DbStoreTest {
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         store.deleteCandidate(candidateInDb.getId());
         assertThat(store.findCandidateById(candidateInDb.getId()), is(nullValue()));
+    }
+
+    @Test
+    public void whenCreateUser() {
+        Store store = DbStore.instOf();
+        User user = new User(0, "Bob", "bob@mail.com", "");
+        store.saveUser(user);
+        User userInDb = store.findUserById(user.getId());
+        assertThat(userInDb.getName(), is(user.getName()));
+    }
+
+    @Test
+    public void whenFindUserByEmail() {
+        Store store = DbStore.instOf();
+        User user1 = new User(0, "Alex", "alex@mail.com", "");
+        store.saveUser(user1);
+        User user2 = new User(0, "Jim", "jim@mail.com", "");
+        store.saveUser(user2);
+        User userInDb = store.findUserByEmail(user2.getEmail());
+        assertThat(userInDb.getEmail(), is(user2.getEmail()));
+    }
+
+    @Test
+    public void whenDeleteUser() {
+        Store store = DbStore.instOf();
+        User user = new User(0, "Sam", "sam@mail.com", "");
+        store.saveUser(user);
+        store.deleteUser(user.getId());
+        assertThat(store.findUserById(user.getId()), is(nullValue()));
     }
 }
