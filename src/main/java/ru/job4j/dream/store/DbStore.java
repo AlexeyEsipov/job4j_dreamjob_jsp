@@ -247,13 +247,13 @@ public class DbStore implements Store {
 
     @Override
     public User findUserByEmail(String email) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users WHERE email = ?")
+        try (Connection poolConnection = pool.getConnection();
+             PreparedStatement preparedStatement = poolConnection.prepareStatement("SELECT * FROM users WHERE email = ?")
         ) {
-            ps.setString(1, email);
-            try (ResultSet it = ps.executeQuery()) {
-                if (it.next()) {
-                    return createUser(it);
+            preparedStatement.setString(1, email);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return createUser(resultSet);
                 }
             }
         } catch (Exception e) {
@@ -294,18 +294,18 @@ public class DbStore implements Store {
     }
 
     private void update(User user) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(
+        try (Connection poolConnection = pool.getConnection();
+             PreparedStatement preparedStatement = poolConnection.prepareStatement(
                      "UPDATE users SET name = ?, email = ?, password =?, modified = ? where id = ?"
              )
         ) {
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
-            ps.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setInt(5, user.getId());
-            ps.execute();
-            try (ResultSet id = ps.getGeneratedKeys()) {
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+            preparedStatement.setInt(5, user.getId());
+            preparedStatement.execute();
+            try (ResultSet id = preparedStatement.getGeneratedKeys()) {
                 if (id.next()) {
                     user.setId(id.getInt(1));
                 }
@@ -315,12 +315,18 @@ public class DbStore implements Store {
         }
     }
 
-    private User createUser(ResultSet it) throws SQLException {
-        return new User(
-                it.getInt("id"),
-                it.getString("name"),
-                it.getString("email"),
-                ""
-        );
+    private User createUser(ResultSet resultSet)  {
+        User result = null;
+        try {
+            result = new User(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+        } catch (SQLException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
     }
 }
