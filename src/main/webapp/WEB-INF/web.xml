@@ -17,7 +17,7 @@
 
   <servlet>
     <servlet-name>PostServlet</servlet-name>
-    <servlet-class>ru.job4j.dream.servlet.PostServlet</servlet-class>
+    <servlet-class>ru.job4j.dream.controller.PostServlet</servlet-class>
   </servlet>
 
   <servlet>
