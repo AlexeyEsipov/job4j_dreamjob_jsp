@@ -48,13 +48,13 @@ public class MainStore {
         store.savePost(new Post(0, "Java Job6"));
         store.savePost(new Post(5, "Java Job5-Edit"));
 
-        store.saveCandidate(new Candidate(0, "Java Candidate1"));
-        store.saveCandidate(new Candidate(0, "Java Candidate2"));
-        store.saveCandidate(new Candidate(0, "Java Candidate3"));
-        store.saveCandidate(new Candidate(0, "Java Candidate4"));
-        store.saveCandidate(new Candidate(0, "Java Candidate5"));
-        store.saveCandidate(new Candidate(0, "Java Candidate6"));
-        store.saveCandidate(new Candidate(5, "Java Candidate5-Edit"));
+        store.saveCandidate(new Candidate(0, "Java Candidate1", 1));
+        store.saveCandidate(new Candidate(0, "Java Candidate2", 2));
+        store.saveCandidate(new Candidate(0, "Java Candidate3", 3));
+        store.saveCandidate(new Candidate(0, "Java Candidate4", 4));
+        store.saveCandidate(new Candidate(0, "Java Candidate5", 3));
+        store.saveCandidate(new Candidate(0, "Java Candidate6", 2));
+        store.saveCandidate(new Candidate(5, "Java Candidate5-Edit", 1));
 
         store.saveUser(new User(0, "Alex", "alex@mail.com", ""));
 

@@ -1,12 +1,15 @@
 package ru.job4j.dream.store;
 
+import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.User;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MemStore implements Store {
@@ -18,17 +21,23 @@ public class MemStore implements Store {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private final Map<Integer, User> users = new ConcurrentHashMap<>();
+    private final List<City> citylist  = new CopyOnWriteArrayList<>();
 
     private MemStore() {
-        posts.put(1, new Post(1, "1. Junior Java Job", "Junior Java Job", "12.07.02"));
-        posts.put(2, new Post(2, "2. Middle Java Job", "Middle Java Job", "20.05.10"));
-        posts.put(3, new Post(3, "3. Senior Java Job", "Senior Java Job", "05.07.14"));
-        candidates.put(1, new Candidate(1, "Junior Java"));
-        candidates.put(2, new Candidate(2, "Middle Java"));
-        candidates.put(3, new Candidate(3, "Senior Java"));
+        posts.put(1, new Post(1, "1. Junior Java Job"));
+        posts.put(2, new Post(2, "2. Middle Java Job"));
+        posts.put(3, new Post(3, "3. Senior Java Job"));
+
+        candidates.put(1, new Candidate(1, "Junior Java", 1));
+        candidates.put(2, new Candidate(2, "Middle Java", 2));
+        candidates.put(3, new Candidate(3, "Senior Java", 3));
         users.put(1, new User(1, "Tom", "tom@mail.com", ""));
         users.put(2, new User(2, "Anna", "anna@mail.com", ""));
         users.put(3, new User(3, "Julia", "julia@mail.com", ""));
+        citylist.add(0, new City(1, "NOVOSIBIRSK"));
+        citylist.add(1, new City(2, "MOSCOW"));
+        citylist.add(2, new City(3, "OMSK"));
+        citylist.add(3, new City(4, "BELGOROD"));
     }
 
     public static MemStore instOf() {
@@ -43,6 +52,16 @@ public class MemStore implements Store {
     @Override
     public Collection<Candidate> findAllCandidates() {
         return candidates.values();
+    }
+
+    @Override
+    public Collection<Post> findLastPosts() {
+        return null;
+    }
+
+    @Override
+    public Collection<Candidate> findLastCandidates() {
+        return null;
     }
 
     @Override
@@ -105,5 +124,22 @@ public class MemStore implements Store {
     @Override
     public void deleteUser(int id) {
         users.remove(id);
+    }
+
+    @Override
+    public Collection<City> findAllCities() {
+        return citylist;
+    }
+
+    @Override
+    public City findCityById(int id) {
+        City result = null;
+        for (City city : citylist) {
+            if (id == city.getId()) {
+                result = city;
+                break;
+            }
+        }
+        return result;
     }
 }

@@ -1,19 +1,15 @@
 package ru.job4j.dream.model;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 public class Post {
     private int id;
     private String name;
     private String description;
-    private String created;
+    private final LocalDateTime created = LocalDateTime.now().truncatedTo(TimeUnit.MINUTES.toChronoUnit());
 
-    public Post(int id, String name, String description, String created) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.created = created;
-    }
+    public Post() { }
 
     public Post(int id, String name) {
         this.id = id;
@@ -24,8 +20,8 @@ public class Post {
         return description;
     }
 
-    public String getCreated() {
-        return created;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {
@@ -44,21 +40,8 @@ public class Post {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Post post = (Post) o;
-        return id == post.id;
-    }
-
-    @Override
-    public int hashCode() {
-            return Objects.hash(id);
+    public LocalDateTime getCreated() {
+        return created;
     }
 
     @Override
@@ -66,5 +49,29 @@ public class Post {
         return "Post{"
                 + "id=" + id
                 + ", name='" + name + "'}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Post)) {
+            return false;
+        }
+
+        Post post = (Post) o;
+
+        if (id != post.id) {
+            return false;
+        }
+        return name != null ? name.equals(post.name) : post.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

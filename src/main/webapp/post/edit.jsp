@@ -1,10 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.MemStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="ru.job4j.dream.store.DbStore" %>
 <!doctype html>
 <html lang="en">
 <jsp:include page="/header.jsp" />
+<script>
+    function validate() {
+        document
+            .querySelector('#form-vacancy-name')
+            .onsubmit = function (evt) {
+            if ($('#vacancy-name').val() === '') {
+                alert($('#vacancy-name').attr('title'));
+                evt.preventDefault();
+            }
+        }
+    }
+</script>
 <body>
 <%
     String id = request.getParameter("id");
@@ -27,14 +38,20 @@
                     <% } %>
                 </div>
                 <div class="card-body">
-                    <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
+                    <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>"
+                          id="form-vacancy-name"
+                          method="post">
                         <div class="form-group">
                             <label>Имя</label>
                             <label>
-                                <input type="text" class="form-control" name="name" value="<%=post.getName()%>">
+                                <input type="text"
+                                       class="form-control"
+                                       id="vacancy-name"
+                                       name="name" value="<%=post.getName()%>"
+                                       required>
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <button type="submit" class="btn btn-primary" onclick="validate()">Сохранить</button>
                     </form>
                 </div>
             </div>

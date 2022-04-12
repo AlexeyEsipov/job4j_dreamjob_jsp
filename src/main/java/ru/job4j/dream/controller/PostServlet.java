@@ -13,13 +13,9 @@ public class PostServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String edit = req.getParameter("edit");
-        String path = edit != null ? "/post/edit.jsp" : "/post/posts.jsp";
+        req.setAttribute("posts", DbStore.instOf().findAllPosts());
         req.setAttribute("user", req.getSession().getAttribute("user"));
-        if (edit == null) {
-            req.setAttribute("posts", DbStore.instOf().findAllPosts());
-        }
-        req.getRequestDispatcher(path).forward(req, resp);
+        req.getRequestDispatcher("/post/posts.jsp").forward(req, resp);
     }
 
     @Override
