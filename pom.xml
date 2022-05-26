@@ -54,7 +54,7 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.3.1</version>
+      <version>42.3.4</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
     <dependency>
@@ -90,8 +90,6 @@
       <artifactId>gson</artifactId>
       <version>2.9.0</version>
     </dependency>
-
-
   </dependencies>
 
   <build>
@@ -168,7 +166,11 @@
           </execution>
         </executions>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+      </plugin>
     </plugins>
   </build>
 
