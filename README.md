@@ -1,5 +1,7 @@
 # job4j_dreamjob
 
+![github actions](https://github.com/AlexeyEsipov/job4j_dreamjob_jsp/actions/workflows/maven.yml/badge.svg)
+
 Приложение представляет собой базу вакансий и базу соискателей, объединенных в одну картотеку.
 
 Страница авторизации
